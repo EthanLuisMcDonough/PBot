@@ -13,6 +13,7 @@ lazy val root = (project in file(".")).
 mainClass in (Compile, packageBin) := Some("com.ethanmcdonough.PBot.Main")
 mainClass in (Compile, run) := Some("com.ethanmcdonough.PBot.Main")
 
-libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.5"
-libraryDependencies += "com.fasterxml.jackson.core" % "jackson-core" % "2.9.4"
-libraryDependencies += "com.fasterxml.jackson.core" % "jackson-databind" % "2.9.4"
+libraryDependencies ++= Seq(
+	"com.typesafe.play" %% "play-json" % "2.6.9",
+	"org.scalaj" %% "scalaj-http" % "2.3.0"	
+)
