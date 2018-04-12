@@ -13,6 +13,7 @@ object Main {
     val user = User(Identifier(args(0)), args(1))
     val session: Session = user.login.get
     println(session.kaid)
-    
+    val v = CommentKaidIterator(4844283525201920l, session)
+    v.flatten.flatten.foreach(println)
   }
 }
