@@ -11,7 +11,7 @@ class Session(val csrfToken: String, val KAID: String, val kaid: String, val use
   val cookies = Seq(KAIDcookie, csrfCookie)
 
   private val root: String = "https://www.khanacademy.org/"
-  def hasCommentedOn(programId: Long): Boolean = CommentKaidIterator(programId, this).flatten.flatten.contains(kaid)
+  def hasCommentedOn(programId: Long): Boolean = CommentKaidIterator(programId, this).flatten.contains(kaid)
   def commentOn(programId: Long, comment: String) = Option(Http(s"${root}api/internal/discussions/scratchpad/$programId/comments")
     .params("casing" -> "camel", "lang" -> "en", "_" -> System.currentTimeMillis.toString)
     .headers("X-KA-FKey" -> csrfToken, "Content-type" -> "application/json")

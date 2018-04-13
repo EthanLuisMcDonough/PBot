@@ -10,7 +10,7 @@ object Main {
     val user: User = User(identifier, password)
     val session: Session = user.login.get
     println(session.csrfToken)
-    println(session.commentOn(6561461926133760l, System.currentTimeMillis + "ms"))
-    println(session.hasCommentedOn(6561461926133760l))
+    //println(session.commentOn(6561461926133760l, System.currentTimeMillis + "ms"))
+    println(session.hasCommentedOn(5120653246103552l))
   }
 }
