@@ -4,6 +4,9 @@ import play.api.libs.json.{JsValue, Json}
 import scalaj.http.{Http, HttpRequest}
 
 class CommentKaidIterator(id: Long, protected val session: Session) extends KAIter[String] {
+  override protected val arrayName: String = "feedback"
+  override protected val completeName: String = "isComplete"
+
   override def request: HttpRequest = Http(s"${root}api/internal/discussions/scratchpad/$id/comments").params(
     "casing" -> "camel", "sort" -> "1",
     "subject" -> "all", "limit" -> limit.toString,
