@@ -12,10 +12,12 @@ class User(val identifier: Identifier, val password: String) {
   private val loginUrl: String = s"${root}login"
 
   override def toString: String = s"User($identifier, $password)"
+
   override def equals(o: Any): Boolean = o match {
     case user: User => user.identifier == identifier && user.password == password;
     case _ => false
   }
+
   override def hashCode: Int = Objects.hash(identifier, password)
 
   def login: Option[Session] = Http(loginUrl).asString.cookies
