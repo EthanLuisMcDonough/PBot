@@ -4,6 +4,7 @@ import play.api.libs.json.{JsValue, Json}
 import scalaj.http.{Http, HttpRequest}
 
 class CommentKaidIterator(id: Long, protected val session: Session) extends KAIter[String] {
+  override protected val limit: Int = 10
   override protected val arrayName: String = "feedback"
   override protected val completeName: String = "isComplete"
 

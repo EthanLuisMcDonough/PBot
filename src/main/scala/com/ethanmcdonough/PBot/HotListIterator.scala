@@ -11,14 +11,18 @@ class HotListIterator(sort: HotListSortTypes.Value, protected val session: Sessi
   override protected val completeName: String = "complete"
   override protected val arrayName: String = "scratchpads"
 
-  protected def extractFromJsValue(jsValue: JsValue): Option[String] = (jsValue \ "url").asOpt[String].flatMap {
+  override protected def extractFromJsValue(jsValue: JsValue): Option[String] = (jsValue \ "url").asOpt[String].flatMap {
     case urlRegex(id) => Option(id)
     case _ => None
   }
-  
-  protected def request: HttpRequest = Http(s"${root}/api/internal/scratchpads/top").params(Map(
+
+  override protected def request: HttpRequest = Http(s"${root}/api/internal/scratchpads/top").params(Map(
     "casing" -> "camel", "sort" -> sort.id.toString, "page" -> page.toString,
     "limit" -> limit.toString, "subject" -> "all", "topic_id" -> topic.toString,
     "lang" -> "en", "_" -> System.currentTimeMillis.toString,
-    "projection" -> """{"complete":1,"cursor":1,"scratchpads":[{"url":1}]}""") ++ (if(cursor.length > 0) Map("cursor" -> cursor) else Map.empty[String, String]))
+    "projection" -> """{"complete":1,"cursor":1,"scratchpads":[{"url":1}]}""") ++ (if (cursor.length > 0) Map("cursor" -> cursor) else Map.empty[String, String]))
+}
+
+object HotListIterator {
+  def apply(sort: HotListSortTypes.Value, session: Session, topic: Topics.Value): HotListIterator = new HotListIterator(sort, session, topic)
 }

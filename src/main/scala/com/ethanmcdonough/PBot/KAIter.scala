@@ -5,13 +5,14 @@ import play.api.libs.json.{Json, JsValue}
 
 trait KAIter[A] extends Iterator[List[A]] {
   protected val root: String = "https://www.khanacademy.org/"
-  protected val limit = 10
-  protected val completeName: String
-  protected val session: Session
+  protected val limit: Int
   protected var cursor: String = ""
   protected var isComplete: Boolean = false
   protected var page: Int = 0
   protected val arrayName: String
+
+  protected val completeName: String
+  protected val session: Session
 
   protected def extractFromJsValue(jsValue: JsValue): Option[A]
 
